@@ -129,9 +129,8 @@ void ServerCommand_Stop()
     		UTIL_LogPrintf( "unable to save the nn file!\n" );
     	}
     	
-    	// Ja mislim da ovo vise ne treba jer se u ann::save poziva f.close
-    	// Nisam niguran 100% al' ajde neka ide zivot xD
-        // fclose(record_fp);
+    	// Ipak mora de se zatvori xD
+        fclose(record_fp);
         
         record_fp = NULL;
 
