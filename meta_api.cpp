@@ -116,7 +116,18 @@ void ServerCommand_Record()
 void ServerCommand_Stop()
 {
     if (record_fp != NULL) {
-        fclose(record_fp);
+        if( !nn ) nn = new ann( );
+	    if( nn->save( record_fp ) == false ) {
+    		delete nn;
+    		nn = NULL;
+    		
+    		UTIL_LogPrintf( "unable to save the nn file!\n" );
+    	}
+    	
+    	// Ja mislim da ovo vise ne treba jer se u ann::save poziva f.close
+    	// Nisam niguran 100% al' ajde neka ide zivot xD
+        //fclose(record_fp);
+        
         record_fp = NULL;
 
         UTIL_LogPrintf("Aim data recording stopped\n");
