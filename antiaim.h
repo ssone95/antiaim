@@ -41,5 +41,6 @@ void aim_show_stats(const char *p_name);
 
 extern FILE *record_fp;
 extern ann *nn;
+extern char record_name[128];
 
 #endif // ANTIAIM_H
