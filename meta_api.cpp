@@ -109,15 +109,20 @@ void ServerCommand_Record()
 
     if ((record_fp = fopen(arg1, "ab")) == NULL)
         UTIL_LogPrintf("%s: unable to open the file\n", arg1);
-    else
-        UTIL_LogPrintf("Recording aim data to '%s'\n", arg1);
+    else {
+    	strcpy( record_name, arg1 );
+		UTIL_LogPrintf("Recording aim data to '%s'\n", arg1);
+    }
 }
 
 void ServerCommand_Stop()
 {
     if (record_fp != NULL) {
+        if( strlen( record_name ) <= 0 )
+		return;
+
         if( !nn ) nn = new ann( );
-	    if( nn->save( record_fp ) == false ) {
+	    if( nn->save( record_name ) == false ) {
     		delete nn;
     		nn = NULL;
     		
@@ -126,7 +131,7 @@ void ServerCommand_Stop()
     	
     	// Ja mislim da ovo vise ne treba jer se u ann::save poziva f.close
     	// Nisam niguran 100% al' ajde neka ide zivot xD
-        //fclose(record_fp);
+        // fclose(record_fp);
         
         record_fp = NULL;
 
